@@ -15,8 +15,7 @@ exports.signup = (req, res) => {
       }
     const { email,first_name,last_name, password,is_admin } = req.body;
 
-    const userId = users.length + 1;
-       
+    const userId = users.length + 1;   
     const result = {
         userId, 
         email,
