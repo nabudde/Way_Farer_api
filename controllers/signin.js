@@ -17,12 +17,14 @@ exports.signin=(req,res)=>{
     if(!checkIfSignup){
       return res.status(400).send("You are not signed up")
   }
+  const id=checkIfSignup.userId;
   const result = {
+    userId:checkIfSignup.userId,
     email,
     first_name:checkIfSignup.first_name,
     last_name:checkIfSignup.last_name
 };
-jwt.sign({result}, "secretkey" ,(error,token)=>{
+jwt.sign({id}, "secretkey" ,(error,token)=>{
     res.status(200).json({
     status: "success",
     data:{
