@@ -4,8 +4,8 @@ const { users } = require('../models');
 
 exports.signin=(req,res)=>{
     const schema = Joi.object().keys({
-        email: Joi.string().regex(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/).required(),
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+        email: Joi.string().required(),
+        password: Joi.string().required()
       });
       const validate_data = Joi.validate(req.body, schema);
       if (validate_data.error) {
