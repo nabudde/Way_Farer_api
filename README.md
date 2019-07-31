@@ -51,7 +51,7 @@ express A javascript framework
 #### Install dependencies
        npm install
 #### Run the application
-    npm run dev
+    npm run dev 
 
 #### API REST End Points
 
