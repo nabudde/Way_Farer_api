@@ -1,4 +1,3 @@
-// const jwt = require('jsonwebtoken');
 const Joi =require ("joi");
 const { trips } = require('../models');
 

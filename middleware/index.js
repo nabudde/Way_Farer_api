@@ -8,9 +8,9 @@ exports.token_verification=(req,res,next)=>{
             error:"enter the token"
         });
     };
-    console.log(res.body);
+    
     jwt.verify(token,"secretkey",(error,response)=>{
-        console.log(response);
+        
         if(error){
             return res.status(400).json({
                 error:"invalid token"
