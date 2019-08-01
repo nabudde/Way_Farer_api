@@ -17,6 +17,7 @@ exports.book_a_seat = (req, res) => {
     const { bus_license_number,user_email,first_name,last_name,trip_date,is_admin} = req.body;
     const booking_id = bookings.length + 1;   
     const result = {
+        booking_id,
         bus_license_number, 
         user_email,
         first_name,
@@ -28,7 +29,6 @@ exports.book_a_seat = (req, res) => {
     res.status(200).json({
         status: "success",
         data:{
-          booking_id,
           result 
         }
     })
