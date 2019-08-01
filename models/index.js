@@ -1,6 +1,7 @@
 const users = [];
 const trips =[];
+const bookings=[];
 
 module.exports = {
-    users,trips,
+    users,trips,bookings,
 };

@@ -1,4 +1,3 @@
-const Joi =require ("joi");
 const { trips } = require('../models');
 exports.specific_trip = (req, res) => {
     const specific_trip = trips.find(t => t.trip_id == req.params.trip_id);
