@@ -49,9 +49,9 @@ node A javascript framework
 express A javascript framework
 ## Development setup
 #### Install dependencies
-       npm install
+    npm install
 #### Run the application
-    npm run dev 
+        npm run dev 
 
 #### API REST End Points
 
