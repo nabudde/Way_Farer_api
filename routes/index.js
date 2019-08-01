@@ -7,8 +7,7 @@ const alltripController=require('../controllers/trips');
 const cancel_tripController=require('../controllers/cancel_trip');
 const specific_tripController=require('../controllers/specific_trip');
 const book_a_seatController=require('../controllers/book_a_seat');
-
-
+const bookingsController=require('../controllers/bookings');
 
 
 
@@ -19,12 +18,6 @@ router.route('/trips').get(middleware.token_verification,alltripController.alltr
 router.route('/trips/:trip_id/cancel').patch(middleware.token_verification,cancel_tripController.cancel_trip);
 router.route('/trips/:trip_id').get(middleware.token_verification,specific_tripController.specific_trip);
 router.route('/bookings').post(middleware.token_verification,book_a_seatController.book_a_seat);
-
-
-
-
-
-
-
+router.route('/bookings').get(middleware.token_verification,bookingsController.bookings);
 
 module.exports = router;
