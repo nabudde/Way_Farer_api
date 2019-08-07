@@ -14,13 +14,27 @@ describe.only('trips', () => {
   beforeEach(() => {
     models.trips.length = 0;
   });
+  describe('POST', () => {
+    it('trips Authentication', (done) => {
+      chai.request(BASE_URL)
+        .post(TRIPS_URL)
+        .send(base.trips_user_1)
+        .end((error, res) => {
+          if (error) done();
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    }); 
+})
+
+
 
   describe('POST', () => {
-
     it('should add a trip to the array', (done) => {
       chai.request(BASE_URL)
         .post(TRIPS_URL)
-        .send(base.TRIPS_URL)
+        .send(base.trips_2)
         .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
@@ -28,4 +42,4 @@ describe.only('trips', () => {
         });
     });
 });
-});
+})
