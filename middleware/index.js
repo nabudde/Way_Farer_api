@@ -5,6 +5,7 @@ exports.token_verification=(req,res,next)=>{
     const token=req.headers["access-token"] ||req.headers.authorisation;
     if(!token){
         return res.status(400).json({
+            status:400,
             error:"enter the token"
         });
     };
@@ -13,6 +14,7 @@ exports.token_verification=(req,res,next)=>{
         
         if(error){
             return res.status(400).json({
+                status:400,
                 error:"invalid token"
             });
         };

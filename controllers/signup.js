@@ -11,7 +11,10 @@ exports.signup = (req, res) => {
       });
       const validate_data = Joi.validate(req.body, schema);
       if (validate_data.error) {
-        res.status(400).send(validate_data.error.details[0].message);
+        res.status(400).json({
+            status: 400,
+            error:validate_data.error.details[0].message
+        });
       }
     const { email,first_name,last_name, password,is_admin } = req.body;
 

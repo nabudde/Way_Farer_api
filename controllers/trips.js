@@ -12,7 +12,10 @@ exports.trips = (req, res) => {
       });
       const result = Joi.validate(req.body, schema);
       if (result.error) {
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).json({
+            status: 400,
+            error:validate_data.error.details[0].message
+        });
       }
   const trip_id = trips.length + 1;
   const date_created= new Date();
@@ -38,9 +41,11 @@ exports.trips = (req, res) => {
   };
   trips.push(createTrip);
 
-  return res.status(200).json({
+  res.status(200).json({
     status: "success",
-    data: createTrip
+    data:{ 
+      createTrip
+    }
   });
 };
 
