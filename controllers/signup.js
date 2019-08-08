@@ -30,8 +30,8 @@ exports.signup = (req, res) => {
     users.push(result);
    
     jwt.sign({userId}, "secretkey" ,(error,token)=>{
-        res.status(200).json({
-            status: "success",
+        res.status(201).json({
+            status: 201,
             data:{
                 token,
                 result 
