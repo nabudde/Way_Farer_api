@@ -16,6 +16,5 @@ exports.delete=(req,res)=>{
             data:{
              message:"Booking deleted successfully "
             }
-    });
-    
+    });   
 }
