@@ -16,23 +16,23 @@ exports.signin=(req,res)=>{
       }
     const { email,password } = req.body;
     
-    const checkIfSignup=users.find(e => e.email === req.body.email);
-    if(!checkIfSignup){
+    const user=users.find(e => e.email === req.body.email);
+    if(!user){
       return res.status(400).json({
         status:400,
         error:"You are not signed up"
       })
   }
-  const id=checkIfSignup.userId;
+  const id=user.userId;
   const result = {
-    userId:checkIfSignup.userId,
+    userId:user.userId,
     email,
-    first_name:checkIfSignup.first_name,
-    last_name:checkIfSignup.last_name
+    first_name:user.first_name,
+    last_name:user.last_name
 };
 jwt.sign({id}, "secretkey" ,(error,token)=>{
     res.status(200).json({
-    status: "success",
+    status: 200,
     data:{
         token,
         result

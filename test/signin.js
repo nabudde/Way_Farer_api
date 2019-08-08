@@ -22,7 +22,7 @@ describe.only('signin', () => {
            .post(SIGNUP_URL)
            .send(base.signup_user)
            .end((error, res) => { 
-             res.should.have.status(200);
+             res.should.have.status(201);
              res.body.should.be.a('object');
              res.body.should.have.property('status');
              done();

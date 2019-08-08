@@ -41,8 +41,8 @@ exports.trips = (req, res) => {
   };
   trips.push(createTrip);
 
-  res.status(200).json({
-    status: "success",
+  res.status(201).json({
+    status: 201,
     data:{ 
       createTrip
     }
@@ -52,7 +52,7 @@ exports.trips = (req, res) => {
 
 exports.alltrips = (req, res) => {
   res.json({
-    status: "success",
+    status: 200,
     data: trips
 });
 }
