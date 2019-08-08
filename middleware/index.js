@@ -22,5 +22,4 @@ exports.token_verification=(req,res,next)=>{
         next();
 
     });
-    
 };
