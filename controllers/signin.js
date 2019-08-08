@@ -9,13 +9,19 @@ exports.signin=(req,res)=>{
       });
       const validate_data = Joi.validate(req.body, schema);
       if (validate_data.error) {
-        res.status(400).send(validate_data.error.details[0].message);
+        res.status(400).json({
+            status: 400,
+            error:validate_data.error.details[0].message
+        });
       }
     const { email,password } = req.body;
     
     const checkIfSignup=users.find(e => e.email === req.body.email);
     if(!checkIfSignup){
-      return res.status(400).send("You are not signed up")
+      return res.status(400).json({
+        status:400,
+        error:"You are not signed up"
+      })
   }
   const id=checkIfSignup.userId;
   const result = {
