@@ -3,7 +3,7 @@ const { bookings } = require('../models');
 exports.book_a_seat = (req, res) => {
     const schema = Joi.object().keys({
         bus_license_number:Joi.string().required(),
-        user_email: Joi.string().regex(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/).required(),
+        user_email: Joi.string().email({ minDomainSegments: 2 }).required(),
         first_name: Joi.string().alphanum().min(3).max(30).required(),
         last_name: Joi.string().alphanum().min(3).max(30).required(),
         trip_date:Joi.date().required(),

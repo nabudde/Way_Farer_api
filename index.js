@@ -9,5 +9,5 @@ bodyParser.json(app);
 
 app.use('/api/v1', routes);
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 app.listen(port, () =>console.log(`Listening on port ${port}..`));

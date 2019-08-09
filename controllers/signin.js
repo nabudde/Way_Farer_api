@@ -4,7 +4,7 @@ const { users } = require('../models');
 
 exports.signin=(req,res)=>{
     const schema = Joi.object().keys({
-        email: Joi.string().required(),
+        email: Joi.string().email({ minDomainSegments: 2 }).required(),
         password: Joi.string().required()
       });
       const validate_data = Joi.validate(req.body, schema);
