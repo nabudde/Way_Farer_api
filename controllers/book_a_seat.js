@@ -30,7 +30,7 @@ exports.book_a_seat = (req, res) => {
     };
     bookings.push(result);
     res.status(200).json({
-        status: "success",
+        status: 201,
         data:{
           result 
         }

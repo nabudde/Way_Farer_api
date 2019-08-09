@@ -9,12 +9,12 @@ exports.bookings = (req, res) => {
     }
     if(!check_booker.is_admin){
         return res.json({
-            status: "success",
+            status: 201,
             data: check_booker
         });
     }
     res.json({
-        status: "success",
+        status: 201,
         data: bookings
     });
 }
