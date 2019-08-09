@@ -12,7 +12,7 @@ exports.delete=(req,res)=>{
         const Index = bookings.indexOf(delete_booking);
         bookings.splice(Index, 1);
         res.json({
-            status:"success",
+            status:201,
             data:{
              message:"Booking deleted successfully "
             }

@@ -10,7 +10,7 @@ exports.cancel_trip=(req,res)=>{
         });    
         };
     res.json({
-        status : "success",
+        status : 200,
         data : {
             message : "Trip cancelled successfully",
         }
