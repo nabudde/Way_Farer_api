@@ -3,7 +3,7 @@ const Joi =require ("joi");
 const { users } = require('../models');
 exports.signup = (req, res) => {
     const schema = Joi.object().keys({
-        email: Joi.string().regex(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/).required(),
+        email: Joi.string().email({ minDomainSegments: 2 }).required(),
         password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
         first_name: Joi.string().alphanum().min(3).max(30).required(),
         last_name: Joi.string().alphanum().min(3).max(30).required(),

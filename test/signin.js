@@ -5,7 +5,7 @@ require('../index');
 
 const models = require('../models');
 const base = require('./base');
-const BASE_URL = 'http://127.0.0.1:7000/api/v1';
+const BASE_URL = 'http://127.0.0.1:3000/api/v1';
 const SIGNUP_URL= '/auth/signup';
 const SIGNIN_URL = '/auth/signin';
 
@@ -64,5 +64,3 @@ describe.only('signin', () => {
        });
       });
     });
-          
-    
