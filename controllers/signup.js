@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Joi =require ("joi");
 const { users } = require('../models');
+const{ users_status }=require('../models');
 exports.signup = (req, res) => {
     const schema = Joi.object().keys({
         email: Joi.string().email({ minDomainSegments: 2 }).required(),
@@ -16,20 +17,29 @@ exports.signup = (req, res) => {
             error:validate_data.error.details[0].message
         });
       }
-    const { email,first_name,last_name, password,is_admin } = req.body;
-
+      const user_existance=users.find(e => e.email === req.body.email);
+      if(user_existance){
+          res.status(400).json({
+              status: 400,
+              error:"email already exists"
+          });
+      };
+      const { email,first_name,last_name, password,is_admin } = req.body;
     const userId = users.length + 1;   
     const result = {
         userId, 
         email,
-        password,
         first_name,
         last_name
-    };
-
+    }; 
+    const user_status= [];
+    user_status.push({
+        userId,
+        is_admin
+    })
     users.push(result);
-   
-    jwt.sign({userId}, "secretkey" ,(error,token)=>{
+    users_status.push(user_status);
+    jwt.sign({userId, is_admin}, "secretkey" ,(error,token)=>{
         res.status(201).json({
             status: 201,
             data:{
@@ -39,3 +49,6 @@ exports.signup = (req, res) => {
         })
     })
 }
+
+
+

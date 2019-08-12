@@ -1,5 +1,7 @@
 const Joi =require ("joi");
 const { trips } = require('../models');
+const { users_status } = require('../models');
+
 
 exports.trips = (req, res) => {
     const schema = Joi.object().keys({
@@ -17,9 +19,14 @@ exports.trips = (req, res) => {
             error:validate_data.error.details[0].message
         });
       }
+      if(users_status.is_admin===false){
+        return res.status(400).json({
+          status: 400,
+          error:"not eligible to create a trip"
+      })
+        };
   const trip_id = trips.length + 1;
   const date_created= new Date();
-
   const {
     seating_capacity,
     bus_license_number,
@@ -29,7 +36,7 @@ exports.trips = (req, res) => {
     fare
   } = req.body;
   
-  const createTrip = {
+  const createTrip = { 
     trip_id,
     seating_capacity,
     bus_license_number,
@@ -40,14 +47,14 @@ exports.trips = (req, res) => {
     fare
   };
   trips.push(createTrip);
-
   res.status(201).json({
     status: 201,
     data:{ 
       createTrip
     }
   });
-};
+}
+  
 
 
 exports.alltrips = (req, res) => {
