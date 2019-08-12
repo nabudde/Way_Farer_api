@@ -1,6 +1,7 @@
 const Joi =require ("joi");
 const jwt = require('jsonwebtoken');
 const { users } = require('../models');
+const {users_status}=require('../models');
 
 exports.signin=(req,res)=>{
     const schema = Joi.object().keys({
@@ -14,8 +15,7 @@ exports.signin=(req,res)=>{
             error:validate_data.error.details[0].message
         });
       }
-    const { email,password } = req.body;
-    
+    const { email,password } = req.body; 
     const user=users.find(e => e.email === req.body.email);
     if(!user){
       return res.status(400).json({
@@ -23,19 +23,18 @@ exports.signin=(req,res)=>{
         error:"You are not signed up"
       })
   }
-  const id=user.userId;
-  const result = {
-    userId:user.userId,
-    email,
-    first_name:user.first_name,
-    last_name:user.last_name
-};
-jwt.sign({id}, "secretkey" ,(error,token)=>{
+  const userId = users.userId;
+const is_admin=users_status.is_admin;
+jwt.sign({userId,is_admin}, "secretkey" ,(error,token)=>{
     res.status(200).json({
     status: 200,
     data:{
         token,
-        result
+        userId,
+        email,
+        first_name:users.first_name,
+        last_name:users.last_name
+        
     }    
 });
 });

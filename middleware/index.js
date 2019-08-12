@@ -2,7 +2,7 @@ const jwt=require("jsonwebtoken");
 const secret="secret";
 
 exports.token_verification=(req,res,next)=>{
-    const token=req.headers["access-token"] ||req.headers.authorisation;
+    const token = req.headers['access-token'] || req.headers.authorization;
     if(!token){
         return res.status(401).json({
             status:401,
@@ -17,8 +17,7 @@ exports.token_verification=(req,res,next)=>{
                 status:400,
                 error:"invalid token"
             });
-        };
-        req.userId=response.userId
+        };        
         next();
 
     });

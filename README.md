@@ -60,7 +60,7 @@ express A javascript framework
 | /api/v1/auth/signup  |   POST         | stores signup details                |
 | /api/v1/auth/signin  |   POST         | stores details for signin            |
 | /api/v1/trips        |   POST         | create  a trip                       |
-| /api/v1/trips  |     |   POST         | create  a trip                       |
+| /api/v1/trips  |     |   GET         | create  a trip                       |
 
 #### Built With
 [node and express] javascript frameworkes.

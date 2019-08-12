@@ -8,7 +8,7 @@ exports.specific_trip = (req, res) => {
         })      
         };
     res.json({
-        status : "success",
+        status : 200,
         data : {
             specific_trip
         }
