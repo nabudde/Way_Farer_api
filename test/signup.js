@@ -45,3 +45,17 @@ it('should raise an error when email is invalid', (done) => {
     });
 });
 });
+describe.only, ('email' ,(done) => {
+it('should raise an error when email is repeated', (done) => {
+  chai.request(BASE_URL)
+    .post(SIGNUP_URL)
+    .send(base.signup_user_1)
+    .end((err, res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('status');
+      res.body.should.have.property('error').eql('"email" is required');
+      done();
+    });
+});
+})

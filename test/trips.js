@@ -52,3 +52,41 @@ chai.should();
     });
 });
 })
+it('should raise 400 if empty field is not provided', (done) => {
+  chai.request(BASE_URL)
+    .post(SIGNIN_URL)
+    .send(base.SIGNin_user_1)
+    .end((err, res) => {
+      if (err) done();
+      chai.request(app)
+        .post('/api/v1/trips')
+        .set('access-token', res.body.data.token)
+        .send({})
+        .end((error, resp) => {
+          if (error) done();
+          resp.should.have.status(400);
+          resp.body.should.be.a('object');
+          resp.body.should.have.property('status');
+          resp.body.should.have.property('error');
+          done();
+        });
+    });
+});
+it('should raise 404 when advert doesnt exist', (done) => {
+  chai.request(app)
+    .post(SIGNIN_URL) 
+    .send(base.signin_user_10)
+    .end((errors, res) => {
+      if (errors) done();
+      chai.request(app)
+        .delete('/api/v1/property/10000')
+        .set('access-token', res.body.data.token)
+        .end((errors2, response) => {
+          if (errors2) done();
+          response.should.have.status(404);
+          response.body.should.be.a('object');
+          response.body.should.have.property('error');
+          done();
+        });
+    });
+});
