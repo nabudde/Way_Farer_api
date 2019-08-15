@@ -63,8 +63,31 @@ exports.trips = async(req, res) => {
       return res.status(400).send(error)
     }
   }
+
+  exports.cancel_trip = async(req, res) => {
+    const isExistingTrip = 'SELECT * FROM trips WHERE trip_id = $1';
+    try {
+      const { rows } = await pool.query(isExistingTrip, [req.params.trip_id]);
+      if (!rows[0]) {
+        return res.status(404).send({'message': 'trip not found'});
+      }
+    } catch(error) {1
+    }
+
+      const canceltrip= `UPDATE trips SET status = 'cancelled'  WHERE trip_id = $1 returning *;`;
+      const newId = req.params.trip_id;
+      try {
+        const { rows } = await pool.query(canceltrip, [newId]);
+        return res.status(404).send({"data": rows[0]});
+      } catch (error) {
+        return error;
+      }
+    };
+  
+
   
   
+
 
 
   
