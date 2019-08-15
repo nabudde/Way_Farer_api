@@ -1,6 +1,6 @@
-const Joi =require ("joi");
-const { trips } = require('../models');
-const { users_status } = require('../models');
+import Joi from"joi";
+import{ trips } from'../models';
+import { users_status } from '../models';
 
 
 exports.trips = (req, res) => {
@@ -10,7 +10,8 @@ exports.trips = (req, res) => {
         origin: Joi.string().alphanum().required(),
         trip_date:Joi.date().required(),
         destination: Joi.string().alphanum().required(),
-        fare: Joi.number().required()
+        fare: Joi.number().required(),
+      
       });
       const result = Joi.validate(req.body, schema);
       if (result.error) {
@@ -62,4 +63,38 @@ exports.alltrips = (req, res) => {
     status: 200,
     data: trips
 });
+}
+
+exports.specific_trip = (req, res) => {
+  const specific_trip = trips.find(t => t.trip_id == req.params.trip_id);
+  if(!specific_trip){
+      return res.status(400).json({
+          status: 400,
+          error:"provided id is not available"
+      })      
+      };
+  res.json({
+      status : 200,
+      data : {
+          specific_trip
+      }
+  });
+  
+}
+
+
+exports.cancel_trip=(req,res) =>{
+  const cancel_trip = users.users.trips.find(t => t.trip_id == req.params.trip_id);
+  if(!cancel_trip){
+      return res.status(400).json({
+          status: 400,
+          error:"provided trip_id is not available "
+      });    
+  };
+  res.json({
+      status : 200,
+      data : {
+          message : "Trip cancelled successfully",
+      }
+  })
 }
