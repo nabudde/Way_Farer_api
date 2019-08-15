@@ -38,86 +38,18 @@ exports.trips = async(req, res) => {
       req.body.date_created,
       req.body.trip_date,
       req.body.fare,
-      // req.body.status
     ];
     const { rows } = await pool.query(text, values);
     return res.status(201).send(rows[0]);
-  } 
-//       if(users_status.is_admin===false){
-//         return res.status(400).json({
-//           status: 400,
-//           error:"not eligible to create a trip"
-//       })
-//         };
-//   const trip_id = trips.length + 1;
-//   const date_created= new Date();
-//   const {
-//     seating_capacity,
-//     bus_license_number,
-//     origin,
-//     trip_date,
-//     destination,
-//     fare
-//   } = req.body;
+  }
+  exports.alltrips = async(req, res) => {
+    const all_trips = 'SELECT * FROM trips';
+    try {
+      const { rows, rowCount } = await pool.query(all_trips);
+      return res.status(200).send({ rows, rowCount });
+    } catch(error) {
+      return res.status(400).send(error);
+    } 
+  }
   
-//   const createTrip = { 
-//     trip_id,
-//     seating_capacity,
-//     bus_license_number,
-//     origin,
-//     destination,
-//     date_created,
-//     trip_date,
-//     fare
-//   };
-//   trips.push(createTrip);
-//   res.status(201).json({
-//     status: 201,
-//     data:{ 
-//       createTrip
-//     }
-//   });
-// }
   
-
-
-// exports.alltrips = (req, res) => {
-//   res.json({
-//     status: 200,
-//     data: trips
-// });
-// }
-
-// exports.specific_trip = (req, res) => {
-//   const specific_trip = trips.find(t => t.trip_id == req.params.trip_id);
-//   if(!specific_trip){
-//       return res.status(400).json({
-//           status: 400,
-//           error:"provided id is not available"
-//       })      
-//       };
-//   res.json({
-//       status : 200,
-//       data : {
-//           specific_trip
-//       }
-//   });
-  
-// }
-
-
-// exports.cancel_trip=(req,res) =>{
-//   const cancel_trip = users.users.trips.find(t => t.trip_id == req.params.trip_id);
-//   if(!cancel_trip){
-//       return res.status(400).json({
-//           status: 400,
-//           error:"provided trip_id is not available "
-//       });    
-//   };
-//   res.json({
-//       status : 200,
-//       data : {
-//           message : "Trip cancelled successfully",
-//       }
-//   })
-// }
