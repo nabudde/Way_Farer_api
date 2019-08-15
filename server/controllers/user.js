@@ -41,3 +41,28 @@ exports.signup = async(req, res) => {
   }
     
 
+//     const { email,password } = req.body; 
+//     const user=users.users.find(e => e.email === req.body.email);
+//     if(!user){
+//       return res.status(400).json({
+//         status:400,
+//         error:"You are not signed up"
+//       })
+//   }
+//   const userId = users.userId;
+// const is_admin=users_status.is_admin;
+// jwt.sign({userId,is_admin}, "secretkey" ,(error,token)=>{
+//     res.status(200).json({
+//     status: 200,
+//     data:{
+//         token,
+//         userId,
+//         email,
+//         first_name:users.first_name,
+//         last_name:users.last_name
+        
+//     }    
+// });
+// });
+// }
+// module.exports [signup];
