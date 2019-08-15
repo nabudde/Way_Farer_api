@@ -1,6 +1,6 @@
 import  jwt from'jsonwebtoken';
 import Joi from  'joi';
-import uuid from 'uuid';
+import uuid from 'uuid'
 import {Pool} from 'pg';
 import dotenv from "dotenv";
 dotenv.config();
@@ -25,7 +25,7 @@ exports.signup = async(req, res) => {
 
     
     const text = `INSERT INTO
-      reflections(userid, password, email, first_name, last_name, is_admin)
+      reflections(user_id, password, email, first_name, last_name, is_admin)
       VALUES($1, $2, $3, $4, $5 ,$6)
       returning *`;
     const values = [

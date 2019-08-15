@@ -1,6 +1,6 @@
 import Joi from"joi";
-import uuid from 'uuid';
 import {Pool} from 'pg';
+import uuid from 'uuid'
 import dotenv from "dotenv";
 dotenv.config();
 const pool = new Pool({connectionString: process.env.DATABASE_URL});
