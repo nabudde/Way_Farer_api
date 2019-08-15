@@ -15,7 +15,7 @@ const createTables = async () => {
   const users =
   `CREATE TABLE IF NOT EXISTS
    reflections(
-    userId UUID PRIMARY KEY,
+    user_id UUID PRIMARY KEY ,
     email VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL,
     first_name VARCHAR(20) NOT NULL,
@@ -24,7 +24,7 @@ const createTables = async () => {
 
   CREATE TABLE IF NOT EXISTS
    trips(
-    trip_id UUID PRIMARY KEY,
+    trip_id UUID PRIMARY KEY can,
     bus_license_number VARCHAR(20) NOT NULL,
     seating_capacity INT NOT NULL,
     origin VARCHAR(20) NOT NULL,
@@ -33,7 +33,16 @@ const createTables = async () => {
     fare FLOAT(4) NOT NULL,
     date_created  VARCHAR NOT NULL,
     status VARCHAR(10) NOT NULL DEFAULT 'active'
-    );`
+    );
+    CREATE TABLE IF NOT EXISTS
+    bookings(
+    booking_id UUID PRIMARY KEY ,
+    bus_license_number VARCHAR(20) NOT NULL,
+    user_email VARCHAR NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
+    trip_date VARCHAR(10) NOT NULL,
+    is_admin BOOLEAN NOT NULL)`
     
     await pool.query(users)
     .then((res) => {
