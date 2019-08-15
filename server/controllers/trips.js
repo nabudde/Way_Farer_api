@@ -51,5 +51,21 @@ exports.trips = async(req, res) => {
       return res.status(400).send(error);
     } 
   }
+  exports.specific_trip = async(req, res) => {
+    const specific_trip = 'SELECT * FROM trips WHERE trip_id = $1';
+    try {
+      const { rows } = await pool.query(specific_trip, [req.params.trip_id]);
+      if (!rows[0]) {
+        return res.status(404).send({'message': 'trip not found'});
+      }
+      return res.status(200).send(rows[0]);
+    } catch(error) {
+      return res.status(400).send(error)
+    }
+  }
+  
+  
+
+
   
   
