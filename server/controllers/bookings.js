@@ -1,5 +1,6 @@
-const Joi =require ("joi");
-const { bookings } = require('../models');
+import  Joi from 'joi';
+import { bookings } from '../models';
+
 exports.book_a_seat = (req, res) => {
     const schema = Joi.object().keys({
         bus_license_number:Joi.string().required(),
@@ -37,3 +38,42 @@ exports.book_a_seat = (req, res) => {
     })
 
     }
+
+
+exports.bookings = (req, res) => {
+    const check_booker = bookings.find(b => b.booking_id == req.params.booking_id);
+    if(!check_booker){
+        return res.status(400).json({
+            status: 400,
+            error:"provided booking_id is not provided"
+        });
+    }
+    if(!check_booker.is_admin){
+        return res.json({
+            status: 201,
+            data: check_booker
+        });
+    }
+    res.json({
+        status: 201,
+        data: bookings
+    });
+}
+
+exports.delete=(req,res)=>{
+    const delete_booking = bookings.find(b => b.booking_id == req.params.booking_id);
+    if(!delete_booking){
+        return res.status(400).json({
+            status: 400,
+            error:validate_data.error.details[0].message
+        });
+    }     
+        const Index = bookings.indexOf(delete_booking);
+        bookings.splice(Index, 1);
+        res.json({
+            status:201,
+            data:{
+             message:"Booking deleted successfully "
+            }
+    });   
+}
