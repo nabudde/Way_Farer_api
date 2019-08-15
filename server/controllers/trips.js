@@ -63,6 +63,7 @@ exports.trips = async(req, res) => {
       return res.status(400).send(error)
     }
   }
+
   exports.cancel_trip = async(req, res) => {
     const isExistingTrip = 'SELECT * FROM trips WHERE trip_id = $1';
     try {
@@ -83,6 +84,11 @@ exports.trips = async(req, res) => {
       }
     };
   
+
+  
+  
+
+
 
   
   
