@@ -40,15 +40,24 @@ exports.trips = async(req, res) => {
       req.body.fare,
     ];
     const { rows } = await pool.query(text, values);
-    return res.status(201).send(rows[0]);
+    return res.status(201).json({
+      status:201,
+      data:rows[0]
+    });
   }
   exports.alltrips = async(req, res) => {
     const all_trips = 'SELECT * FROM trips';
     try {
       const { rows, rowCount } = await pool.query(all_trips);
-      return res.status(200).send({ rows, rowCount });
+      return res.status(200).json({
+        status:200,
+        data: rows, rowCount 
+      });
     } catch(error) {
-      return res.status(400).send(error);
+      return res.status(400).json({
+        status:400,
+        error:error
+      });
     } 
   }
   exports.specific_trip = async(req, res) => {
@@ -56,11 +65,20 @@ exports.trips = async(req, res) => {
     try {
       const { rows } = await pool.query(specific_trip, [req.params.trip_id]);
       if (!rows[0]) {
-        return res.status(404).send({'message': 'trip not found'});
+        return res.status(404).json({
+          status:404,
+          'message': 'trip not found'
+        });
       }
-      return res.status(200).send(rows[0]);
+      return res.status(200).json({
+        status:200,
+        data:rows[0]
+      });
     } catch(error) {
-      return res.status(400).send(error)
+      return res.status(400).json({
+        status:400,
+        error:error
+      })
     }
   }
 
@@ -69,7 +87,10 @@ exports.trips = async(req, res) => {
     try {
       const { rows } = await pool.query(isExistingTrip, [req.params.trip_id]);
       if (!rows[0]) {
-        return res.status(404).send({'message': 'trip not found'});
+        return res.status(404).json({
+          status:404,
+          'message': 'trip not found'
+        });
       }
     } catch(error) {1
     }
@@ -78,7 +99,10 @@ exports.trips = async(req, res) => {
       const newId = req.params.trip_id;
       try {
         const { rows } = await pool.query(canceltrip, [newId]);
-        return res.status(404).send({"data": rows[0]});
+        return res.status(404).json({
+          status:404,
+          "data": rows[0]
+        });
       } catch (error) {
         return error;
       }

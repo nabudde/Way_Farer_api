@@ -1,4 +1,4 @@
-import  jwt from'jsonwebtoken';
+import token from "../middleware/index"
 import Joi from  'joi';
 import uuid from 'uuid'
 import {Pool} from 'pg';
@@ -22,7 +22,6 @@ exports.signup = async(req, res) => {
             error:validate_data.error.details[0].message
         });
       }
-
     
     const text = `INSERT INTO
       reflections(user_id, password, email, first_name, last_name, is_admin)
@@ -37,9 +36,15 @@ exports.signup = async(req, res) => {
       req.body.is_admin
     ];
       const { rows } = await pool.query(text, values);
-      return res.status(201).send(rows[0]);  
-  }
-
+      console.log(token);
+      return res.status(201).json({
+        status:201,
+        token,
+        data:rows[0]
+      }); 
+    }
+    
+   
   exports.signin= async(req,res)=>{
     const schema = Joi.object().keys({
         email: Joi.string().email({ minDomainSegments: 2 }).required(),
@@ -59,7 +64,13 @@ exports.signup = async(req, res) => {
       const rows = await pool.query(login, values);
       const pssd = rows;
       if(pssd){
-      return res.status(201).send("You are logged in"); 
-      } res.status(400).send("invalid password"); 
+      return res.status(201).json({
+        status:201,
+        message:"You are logged in"
+      }); 
+      } res.status(400).json({
+        status:400,
+        error:"invalid password"
+      }); 
     }
 
