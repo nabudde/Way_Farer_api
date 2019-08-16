@@ -1,7 +1,7 @@
 import {Router} from 'express';
-import { signin, signup } from '../../controllers/user';
-import { trips, alltrips ,specific_trip ,cancel_trip } from '../../controllers/trips';
-import { book_a_seat ,bookings } from '../../controllers/bookings';
+import { signin, signup } from '../controllers/user';
+import { trips, alltrips ,specific_trip ,cancel_trip } from '../controllers/trips';
+import { book_a_seat ,bookings } from '../controllers/bookings';
 
 
 
