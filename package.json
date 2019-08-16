@@ -4,7 +4,7 @@
   "description": "WayFarer is a public bus transportation booking service.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --exit",
     "start": "babel-watch index.js",
     "create": "babel-watch ../server/Db/db.js",
     "drop": "babel-watch ../server/Db/db.js",
