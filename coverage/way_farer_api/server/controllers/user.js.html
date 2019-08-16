@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">57.14% </span>
+        <span class="strong">55.17% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>16/28</span>
+        <span class='fraction'>16/29</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">16.67% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">57.14% </span>
+        <span class="strong">55.17% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/28</span>
+        <span class='fraction'>16/29</span>
       </div>
     </div>
     <p class="quiet">
@@ -111,7 +111,18 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -131,7 +142,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,6 +161,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -173,10 +189,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import  jwt from'jsonwebtoken';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import token from "../middleware/index"
 import Joi from  'joi';
 import uuid from 'uuid'
 import {Pool} from 'pg';
@@ -200,7 +222,6 @@ exports.signup = async(req, res) =&gt; {
             error:validate_data.error.details[0].message
         });
       }
-&nbsp;
     
     const text = `INSERT INTO
       reflections(user_id, password, email, first_name, last_name, is_admin)
@@ -215,9 +236,15 @@ exports.signup = async(req, res) =&gt; {
       req.body.is_admin
     ];
       const { rows } = await pool.query(text, values);
-<span class="cstat-no" title="statement not covered" >      return r</span>es.status(201).send(rows[0]);  
-  }
-&nbsp;
+<span class="cstat-no" title="statement not covered" >      console.l</span>og(token);
+<span class="cstat-no" title="statement not covered" >      return r</span>es.status(201).json({
+        status:201,
+        token,
+        data:rows[0]
+      }); 
+    }
+    
+   
   exports.signin= <span class="fstat-no" title="function not covered" >async(r</span>eq,res)=&gt;{
     const schema = <span class="cstat-no" title="statement not covered" >Joi.o</span>bject().keys({
         email: Joi.string().email({ minDomainSegments: 2 }).required(),
@@ -237,8 +264,14 @@ exports.signup = async(req, res) =&gt; {
       const rows = <span class="cstat-no" title="statement not covered" >await pool.q</span>uery(login, values);
       const pssd = <span class="cstat-no" title="statement not covered" >rows;</span>
 <span class="cstat-no" title="statement not covered" >      if(pssd){</span>
-<span class="cstat-no" title="statement not covered" >      return r</span>es.status(201).send("You are logged in"); 
-      } <span class="cstat-no" title="statement not covered" >res.s</span>tatus(400).send("invalid password"); 
+<span class="cstat-no" title="statement not covered" >      return r</span>es.status(201).json({
+        status:201,
+        message:"You are logged in"
+      }); 
+      } <span class="cstat-no" title="statement not covered" >res.s</span>tatus(400).json({
+        status:400,
+        error:"invalid password"
+      }); 
     }
 &nbsp;
 &nbsp;</pre></td></tr>
@@ -247,7 +280,7 @@ exports.signup = async(req, res) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 16 2019 03:47:47 GMT+0200 (South Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 16 2019 07:29:08 GMT+0200 (South Africa Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

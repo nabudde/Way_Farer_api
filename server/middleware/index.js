@@ -1,4 +1,4 @@
-const jwt=require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 const secret="secret";
 
 exports.token_verification=(req,res,next)=>{

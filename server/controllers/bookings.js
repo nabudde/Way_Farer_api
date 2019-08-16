@@ -36,7 +36,9 @@ exports.book_a_seat = async(req, res) => {
       req.body.trip_date,
       req.body.is_admin];
       const { rows } = await pool.query(createbooking, values);
-      return res.status(201).send(rows[0]);  
+      return res.status(201).json({
+          status:201,
+          data:rows[0]});  
   }
     
   exports.bookings = async(req, res) => {
@@ -44,11 +46,20 @@ exports.book_a_seat = async(req, res) => {
     try {
       const { rows } = await pool.query(specific_booking, [req.params.booking_id]);
       if (!rows[0]) {
-        return res.status(404).send({'message': 'booking not found'});
+        return res.status(404).json({
+            status: 404,
+            error:"booking not found"
+        });
       }
-      return res.status(200).send({"data":rows[0]});
+      return res.status(200).json({
+          status:200,
+          data:rows[0]
+        });
     } catch(error) {
-      return res.status(400).send(error)
+      return res.status(400).json({
+          status:400,
+          error:error   
+      })
     }
   }
 
